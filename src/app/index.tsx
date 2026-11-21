@@ -66,20 +66,17 @@ export default function AuthScreen() {
       await AsyncStorage.removeItem(REMEMBER_KEY);
     }
 
-    Alert.alert(
-      isRegister ? "რეგისტრაცია წარმატებულია" : "ავტორიზაცია წარმატებულია",
-      `მომხმარებელი: ${values.email}`,
-      [
-        {
-          text: "პროდუქტებზე გადასვლა",
-          onPress: () => router.replace(PRODUCTS_ROUTE),
-        },
-      ],
-    );
+    router.replace(PRODUCTS_ROUTE);
   };
 
   const triggerSubmit = () => {
-    void handleSubmit(onSubmit)();
+    void handleSubmit(onSubmit, (formErrors) => {
+      console.log("Validation errors:", formErrors);
+      Alert.alert(
+        "ვალიდაციის შეცდომა",
+        "შეამოწმეთ ელ-ფოსტა და პაროლი (მინ. 6 სიმბოლო)",
+      );
+    })();
   };
 
   return (
