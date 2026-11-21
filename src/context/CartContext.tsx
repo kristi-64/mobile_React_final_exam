@@ -36,7 +36,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     AsyncStorage.getItem(CART_KEY).then((raw) => {
       if (raw) {
-        setItems(JSON.parse(raw));
+        setItems(JSON.parse(raw) as CartItem[]);
       }
     });
   }, []);
