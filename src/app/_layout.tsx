@@ -1,18 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack } from "expo-router";
+import { CartProvider } from "../context/CartContext";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <CartProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ title: "ავტორიზაცია / რეგისტრაცია" }}
+        />
+        <Stack.Screen name="products" options={{ title: "პროდუქტები" }} />
+        <Stack.Screen
+          name="details/[id]"
+          options={{ title: "პროდუქტის დეტალები" }}
+        />
+        <Stack.Screen name="cart" options={{ title: "კალათა" }} />
+        <Stack.Screen name="camera" options={{ title: "კამერა" }} />
+      </Stack>
+    </CartProvider>
   );
 }
